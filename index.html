@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Keimanan Terhadap Hari Akhir — Perspektif Islam Modern</title>
+  <title>Keimanan Terhadap Hari Akhir Perspektif Islam Modern</title>
   <meta name="description" content="Memahami keimanan terhadap Hari Akhir dalam kehidupan Islam modern — sebuah refleksi mendalam tentang akhirat sebagai kompas kehidupan." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -137,6 +137,59 @@
 
     .nav-links a:hover { color: var(--text-main); }
     .nav-links a:hover::after { left: 0; right: 0; }
+
+    /* MOBILE NAV */
+
+.mobile-menu-btn{
+  display:none;
+  background:none;
+  border:none;
+  font-size:1.8rem;
+  color:var(--sky-deep);
+  cursor:pointer;
+}
+
+@media (max-width:760px){
+
+  .mobile-menu-btn{
+    display:block;
+  }
+
+  .nav-links{
+    position:absolute;
+    top:100%;
+    left:0;
+    right:0;
+
+    display:flex;
+    flex-direction:column;
+    gap:0;
+
+    background:rgba(240,248,255,.97);
+    backdrop-filter:blur(20px);
+
+    border-bottom:1px solid rgba(94,180,232,.25);
+
+    max-height:0;
+    overflow:hidden;
+
+    transition:max-height .35s ease;
+  }
+
+  .nav-links.show{
+    max-height:400px;
+  }
+
+  .nav-links li{
+    width:100%;
+  }
+
+  .nav-links a{
+    display:block;
+    padding:1rem 1.5rem;
+    text-align:center;
+  }
+}
 
     /* ─── HERO ─── */
     .hero {
@@ -1008,7 +1061,7 @@
 
     @media (max-width: 760px) {
       nav { padding: 1rem 1.5rem; }
-      .nav-links { display: none; }
+
       .pillars-grid { grid-template-columns: 1fr; }
       .content-layout, .content-layout.flip { grid-template-columns: 1fr; gap: 2.5rem; }
       .content-layout.flip .ayat-col { order: -1; }
@@ -1122,6 +1175,11 @@
 <!-- ═══ NAVIGATION ═══ -->
 <nav id="main-nav">
   <div class="nav-logo">الآخرة</div>
+
+  <button class="mobile-menu-btn" id="mobileMenuBtn">
+    ☰
+  </button>
+
   <ul class="nav-links">
     <li><a href="#rukun">Rukun Iman</a></li>
     <li><a href="#makna">Makna</a></li>
@@ -1137,7 +1195,7 @@
 
   <div class="hero-badge">
     <span class="badge-dot"></span>
-    Rukun Iman Keenam
+    Rukun Iman Ke Lima
   </div>
 
   <div class="hero-ring-wrapper">
@@ -1698,6 +1756,26 @@
   window.scrollTo({
     top: 0,
     behavior: "instant"
+  });
+});
+
+// mobile menu
+const mobileBtn = document.getElementById("mobileMenuBtn");
+const navLinks = document.querySelector(".nav-links");
+
+mobileBtn.addEventListener("click", () => {
+  navLinks.classList.toggle("show");
+
+  mobileBtn.textContent =
+    navLinks.classList.contains("show")
+      ? "✕"
+      : "☰";
+});
+
+document.querySelectorAll(".nav-links a").forEach(link => {
+  link.addEventListener("click", () => {
+    navLinks.classList.remove("show");
+    mobileBtn.textContent = "☰";
   });
 });
 
